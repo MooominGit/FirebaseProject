@@ -46,9 +46,9 @@ class MyAdapter(private val context: Context, private var items: List<Item>)
         holder.view.findViewById<TextView>(R.id.post_list_title).text = item.title
         holder.view.findViewById<TextView>(R.id.post_list_price).text = decimalFormat.format(item.price).toString() + "원"
         if (item.forSale.toString() == "true")
-            holder.view.findViewById<TextView>(R.id.post_list_forSale).text = "판매여부 : O"
+            holder.view.findViewById<TextView>(R.id.post_list_forSale).text = "판매여부 O"
         else
-            holder.view.findViewById<TextView>(R.id.post_list_forSale).text = "판매여부 : X"
+            holder.view.findViewById<TextView>(R.id.post_list_forSale).text = "판매여부 X"
 
         holder.itemView.setOnClickListener {
             itemClickListener?.onItemClick(item)

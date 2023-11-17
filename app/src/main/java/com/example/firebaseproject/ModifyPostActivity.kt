@@ -3,6 +3,8 @@ package com.example.firebaseproject
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.CheckBox
+import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
@@ -17,6 +19,7 @@ class ModifyPostActivity : AppCompatActivity(){
     private val title by lazy {findViewById<TextView>(R.id.modify_post_title)}
     private val content by lazy {findViewById<TextView>(R.id.modify_post_content)}
     private val price by lazy {findViewById<TextView>(R.id.modify_post_price)}
+    private val forSale by lazy {findViewById<CheckBox>(R.id.modify_post_forSale)}
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_modify_post)
@@ -36,19 +39,25 @@ class ModifyPostActivity : AppCompatActivity(){
 
     fun getData(docId: String) {
         postRef.document(docId).get().addOnSuccessListener {
+            val sale = it.getBoolean("forSale")
             title.text = it["title"].toString()
             price.text = it["price"].toString()
             content.text = it["content"].toString()
+            forSale.isChecked = it.getBoolean("forSale")?:false
         }
     }
 
     fun updateData(docId: String){
         val titleText = title.text.toString()
-        val priceText = price.text.toString()
+        val priceText = price.text.toString().toInt()
         val contentText = content.text.toString()
+
         postRef.document(docId).update("title",titleText)
-        postRef.document(docId).update("price",priceText)
         postRef.document(docId).update("content",contentText)
+        postRef.document(docId).update("price",priceText)
+        postRef.document(docId).update("forSale",forSale.isChecked)
+
+
     }
 
 }

@@ -3,6 +3,7 @@ package com.example.firebaseproject
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.CheckBox
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +19,7 @@ class ViewPostListActivity: AppCompatActivity() {
     private val postRef = db.collection("post")
     private val recyclerView by lazy { findViewById<RecyclerView>(R.id.PostRecycler) }
     private val wrietPost by lazy { findViewById<Button>(R.id.writePost)}
+    private val forSale by lazy {findViewById<CheckBox>(R.id.view_post_list_forSale)}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +38,15 @@ class ViewPostListActivity: AppCompatActivity() {
         queryItem()
         recyclerView.adapter = adapter
 
+        forSale.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (forSale.isChecked == true) {
+                queryItem()
+            }
+            else {
+
+            }
+        }
+
         wrietPost.setOnClickListener{
             startActivity(
                 Intent(this,WritePostActivity::class.java)
@@ -51,6 +62,10 @@ class ViewPostListActivity: AppCompatActivity() {
             }
             adapter?.updateList(items)
         }
+    }
+
+    private fun queryNotSale(){
+
     }
 }
 

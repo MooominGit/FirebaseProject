@@ -23,23 +23,23 @@
         android:layout_width="0dp"
         android:layout_height="350dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="2dp"
         android:layout_marginEnd="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/modify_post_price">
+        app:layout_constraintTop_toBottomOf="@+id/modify_post_forSale">
 
         <EditText
             android:id="@+id/modify_post_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:ems="10"
-            android:inputType="textMultiLine"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"
-            android:hint="내용 작성"/>
+            android:background="@android:color/transparent"
+            android:ems="10"
+            android:hint="내용 작성"
+            android:inputType="textMultiLine" />
     </FrameLayout>
 
     <EditText
@@ -72,5 +72,14 @@
         android:text="뒤로 가기"
         app:layout_constraintEnd_toStartOf="@+id/modify_post_modifyPost"
         app:layout_constraintTop_toTopOf="@+id/modify_post_modifyPost" />
+
+    <CheckBox
+        android:id="@+id/modify_post_forSale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:text="판매여부"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/modify_post_price" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

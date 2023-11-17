@@ -11,13 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="25dp"
         app:layout_constraintBottom_toTopOf="@+id/writePost"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/view_post_list_forSale" />
 
     <TextView
         android:id="@+id/textView"
@@ -40,5 +40,15 @@
         android:text="글 쓰기"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <CheckBox
+        android:id="@+id/view_post_list_forSale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
+        android:text="필터 : 판매여부"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
