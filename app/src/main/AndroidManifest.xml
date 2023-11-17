@@ -21,6 +21,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SignUpActivity"
+            android:label=".SignUpActivity" />
+        <activity
+            android:name=".ViewPostListActivity"
+            android:label=".ViewPostListActivity" />
+        <activity
+            android:name=".ViewPostActivity"
+            android:label=".ViewPostActivity" />
+        <activity
+            android:name=".SendMessageActivity"
+            android:label=".SendMessageActivity" />
     </application>
 
 </manifest>
