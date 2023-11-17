@@ -16,8 +16,6 @@ class SignUpActivity : AppCompatActivity() {
     private var db: FirebaseFirestore = Firebase.firestore
     private var userRef = db.collection("user")
     override fun onCreate(savedInstanceState: Bundle?) {
-
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_singup)
         findViewById<Button>(R.id.Back).setOnClickListener{

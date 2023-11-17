@@ -33,6 +33,12 @@
         <activity
             android:name=".SendMessageActivity"
             android:label=".SendMessageActivity" />
+        <activity
+            android:name=".WritePostActivity"
+            android:label=".WritePostActivity" />
+        <activity
+            android:name=".ModifyPostActivity"
+            android:label=".ModifyPostActivity" />
     </application>
 
 </manifest>
