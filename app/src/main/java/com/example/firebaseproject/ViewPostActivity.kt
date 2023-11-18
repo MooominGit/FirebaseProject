@@ -14,7 +14,6 @@ class ViewPostActivity : AppCompatActivity() {
     private val db: FirebaseFirestore = Firebase.firestore
     private val postRef = db.collection("post")
     private val userRef = db.collection("user")
-    private val messageRef = db.collection("message")
     private val back by lazy {findViewById<Button>(R.id.view_post_back)}
     private val sendMessage by lazy {findViewById<Button>(R.id.view_post_sendMessage)}
     private val name by lazy {findViewById<TextView>(R.id.view_post_name)}
@@ -22,6 +21,7 @@ class ViewPostActivity : AppCompatActivity() {
     private val content by lazy {findViewById<TextView>(R.id.view_post_content)}
     private val price by lazy {findViewById<TextView>(R.id.view_post_price)}
     private val forSale by lazy {findViewById<TextView>(R.id.view_post_forSale)}
+    private lateinit var postUserId : String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_post)
@@ -35,7 +35,9 @@ class ViewPostActivity : AppCompatActivity() {
         }
 
         sendMessage.setOnClickListener{
-            startActivity(Intent(this,SendMessageActivity::class.java))
+            val intent = Intent(this,SendMessageActivity::class.java)
+            intent.putExtra("postUserId",postUserId)
+            startActivity(intent)
         }
     }
 
@@ -44,10 +46,11 @@ class ViewPostActivity : AppCompatActivity() {
             title.text = it["title"].toString()
             price.text = it["price"].toString() + "원"
             content.text = it["content"].toString()
+            postUserId = it["id"].toString()
             val sale = it.getBoolean("forSale")?:false
             if(sale == true) forSale.text = "판매여부 O"
             else forSale.text = "판매여부 x"
-            userRef.document(it["id"].toString()).get().addOnSuccessListener {
+            userRef.document(postUserId).get().addOnSuccessListener {
                 name.text = it["name"].toString()
             }
         }

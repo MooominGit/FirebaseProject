@@ -14,11 +14,12 @@ import com.google.firebase.ktx.Firebase
 
 
 class ViewPostListActivity: AppCompatActivity() {
-    private var adapter: MyAdapter? = null
+    private var adapter: PostAdapter? = null
     private val db: FirebaseFirestore = Firebase.firestore
     private val postRef = db.collection("post")
     private val recyclerView by lazy { findViewById<RecyclerView>(R.id.PostRecycler) }
     private val wrietPost by lazy { findViewById<Button>(R.id.writePost)}
+    private val receivedMessage by lazy { findViewById<Button>(R.id.receivedMessage)}
     private val forSale by lazy {findViewById<CheckBox>(R.id.view_post_list_forSale)}
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +27,7 @@ class ViewPostListActivity: AppCompatActivity() {
         setContentView(R.layout.activity_view_post_list)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = MyAdapter(this, emptyList())
+        adapter = PostAdapter(this, emptyList())
         adapter?.setOnItemClickListener {
             val intent = if(Firebase.auth.currentUser?.uid == it.id)
                 Intent(this, ModifyPostActivity::class.java)
@@ -39,18 +40,16 @@ class ViewPostListActivity: AppCompatActivity() {
         recyclerView.adapter = adapter
 
         forSale.setOnCheckedChangeListener { buttonView, isChecked ->
-            if (forSale.isChecked == true) {
-                queryItem()
-            }
-            else {
-
-            }
+            if (forSale.isChecked == true) queryItem()
+            else queryNotSale()
         }
 
         wrietPost.setOnClickListener{
-            startActivity(
-                Intent(this,WritePostActivity::class.java)
-            )
+            startActivity(Intent(this,WritePostActivity::class.java))
+        }
+
+        receivedMessage.setOnClickListener{
+            startActivity(Intent(this,ViewMessageListActivity::class.java))
         }
     }
 
@@ -64,8 +63,14 @@ class ViewPostListActivity: AppCompatActivity() {
         }
     }
 
-    private fun queryNotSale(){
-
+    private fun queryNotSale() {
+        postRef.whereEqualTo("forSale", true).get().addOnSuccessListener {
+            val items = mutableListOf<Item>()
+            for (doc in it) {
+                items.add(Item(doc))
+            }
+            adapter?.updateList(items)
+        }
     }
 }
 

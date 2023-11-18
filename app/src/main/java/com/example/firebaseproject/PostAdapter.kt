@@ -14,10 +14,10 @@ data class Item(val docId : String, val title: String, val price: Int, val forSa
             this(doc.id, doc["title"].toString(), doc["price"].toString().toIntOrNull() ?: 0, doc["forSale"].toString().toBoolean(), doc["id"].toString())
 }
 
-class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view)
+class PostViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
-class MyAdapter(private val context: Context, private var items: List<Item>)
-    : RecyclerView.Adapter<MyViewHolder>() {
+class PostAdapter(private val context: Context, private var items: List<Item>)
+    : RecyclerView.Adapter<PostViewHolder>() {
 
     fun interface OnItemClickListener {
         fun onItemClick(item: Item)
@@ -34,13 +34,13 @@ class MyAdapter(private val context: Context, private var items: List<Item>)
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.post_list, parent, false)
-        return MyViewHolder(view)
+        return PostViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         val decimalFormat = DecimalFormat("#,###")
         val item = items[position]
         holder.view.findViewById<TextView>(R.id.post_list_title).text = item.title

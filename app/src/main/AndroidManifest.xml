@@ -39,6 +39,12 @@
         <activity
             android:name=".ModifyPostActivity"
             android:label=".ModifyPostActivity" />
+        <activity
+            android:name=".ViewMessageActivity"
+            android:label=".ViewMessageActivity" />
+        <activity
+            android:name=".ViewMessageListActivity"
+            android:label=".ViewMessageListActivity" />
     </application>
 
 </manifest>
