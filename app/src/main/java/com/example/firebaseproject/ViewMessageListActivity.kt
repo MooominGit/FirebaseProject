@@ -28,14 +28,16 @@ class ViewMessageListActivity : AppCompatActivity() {
         adapter = MessageAdapter(this, emptyList())
         adapter?.setOnItemClickListener {
             val intent = Intent(this, ViewMessageActivity::class.java)
-            intent.putExtra("docId", it.sendUser)
+            intent.putExtra("docId", it.docId)
             startActivity(intent)
         }
         queryItem()
         recyclerView.adapter = adapter
 
+
         back.setOnClickListener{
-            startActivity(Intent(this,ViewPostListActivity::class.java))
+            onBackPressed()
+            //startActivity(Intent(this,ViewPostListActivity::class.java))
         }
     }
 

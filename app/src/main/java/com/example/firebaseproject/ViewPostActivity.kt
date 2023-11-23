@@ -31,7 +31,8 @@ class ViewPostActivity : AppCompatActivity() {
         }
 
         back.setOnClickListener{
-            startActivity(Intent(this,ViewPostListActivity::class.java))
+            onBackPressed()
+            //startActivity(Intent(this,ViewPostListActivity::class.java))
         }
 
         sendMessage.setOnClickListener{

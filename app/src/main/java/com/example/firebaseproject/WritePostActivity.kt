@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
@@ -25,15 +26,10 @@ class WritePostActivity: AppCompatActivity() {
 
         writeButton.setOnClickListener{
             addItem()
-            startActivity(
-                Intent(this,ViewPostListActivity::class.java)
-            )
         }
 
          backButton.setOnClickListener{
-            startActivity(
-                Intent(this,ViewPostListActivity::class.java)
-            )
+            onBackPressed()
         }
     }
 
@@ -41,24 +37,31 @@ class WritePostActivity: AppCompatActivity() {
         val title = editTitle.text.toString()
         val uid = Firebase.auth.currentUser?.uid
         if (title.isEmpty()) {
-            Snackbar.make(editTitle, "Input name!", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(editTitle, "제목을 입력해주세요", Snackbar.LENGTH_SHORT).show()
             return
         }
-        val price = editPrice.text.toString().toInt()
+        if (editPrice.text.isEmpty()){
+            Snackbar.make(editContent, "가격을 입력해주세요", Snackbar.LENGTH_SHORT).show()
+            return
+        }
         val content = editContent.text.toString()
         if (content.isEmpty()) {
-            Snackbar.make(editContent, "Input Content", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(editContent, "내용을 입력해주세요", Snackbar.LENGTH_SHORT).show()
             return
         }
         val itemMap = hashMapOf(
             "id" to uid,
             "title" to title,
             "content" to content,
-            "price" to price,
+            "price" to editPrice.text.toString().toInt(),
             "forSale" to true
         )
-        postRef.add(itemMap).addOnSuccessListener {  }
-            .addOnFailureListener{}
+        postRef.add(itemMap).addOnSuccessListener {
+            startActivity(Intent(this,ViewPostListActivity::class.java))
+        }
+            .addOnFailureListener{
+                Toast.makeText(this,"글 등록에 실패했습니다.",Toast.LENGTH_SHORT).show()
+            }
     }
 
 }

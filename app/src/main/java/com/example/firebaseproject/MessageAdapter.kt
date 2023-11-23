@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.QueryDocumentSnapshot
 
 
-data class MessageItem(val sendUser : String, val content : String) {
+data class MessageItem(val sendUser : String, val content : String, val docId : String) {
     constructor(sendUser: String,doc: QueryDocumentSnapshot) :
-            this(sendUser, doc["content"].toString())
+            this(sendUser, doc["content"].toString(),doc.id)
 }
 
 class MessageViewHolder(val view: View) : RecyclerView.ViewHolder(view)

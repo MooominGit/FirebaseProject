@@ -48,9 +48,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginTop="20dp"
+        android:digits="0123456789"
         android:ems="10"
-        android:hint="가격 입력"
-        android:inputType="text"
+        android:hint="가격 입력(숫자만 입력)  "
+        android:inputType="number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/modify_post_title" />
 

@@ -6,7 +6,9 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.Switch
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -28,12 +30,12 @@ class ModifyPostActivity : AppCompatActivity(){
         if (docId != null) getData(docId)
 
         back.setOnClickListener{
-            startActivity(Intent(this,ViewPostListActivity::class.java))
+            onBackPressed()
+            //startActivity(Intent(this,ViewPostListActivity::class.java))
         }
 
         modifyPost.setOnClickListener{
             if (docId != null) updateData(docId)
-            startActivity(Intent(this,ViewPostListActivity::class.java))
         }
     }
 
@@ -48,16 +50,17 @@ class ModifyPostActivity : AppCompatActivity(){
     }
 
     fun updateData(docId: String){
-        val titleText = title.text.toString()
-        val priceText = price.text.toString().toInt()
-        val contentText = content.text.toString()
-
-        postRef.document(docId).update("title",titleText)
-        postRef.document(docId).update("content",contentText)
-        postRef.document(docId).update("price",priceText)
-        postRef.document(docId).update("forSale",forSale.isChecked)
-
-
+        if (price.text.isEmpty()) {
+            Snackbar.make(price, "가격을 입력해주세요", Snackbar.LENGTH_SHORT).show()
+            return
+        }
+        postRef.document(docId).update("price",price.text.toString().toInt())
+        postRef.document(docId).update("forSale",forSale.isChecked).addOnSuccessListener {
+            startActivity(Intent(this,ViewPostListActivity::class.java))
+        }.addOnFailureListener{
+            Toast.makeText(this,"글을 수정하는 데 실패했습니다.", Toast.LENGTH_SHORT).show()
+        }
+        
     }
 
 }
