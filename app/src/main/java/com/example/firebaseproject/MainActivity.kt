@@ -47,6 +47,8 @@ class MainActivity : AppCompatActivity() {
                     Log.w("LoginActivity","signInWithEmail",it.exception)
                     Toast.makeText(this, "가입되어있지 않은 계정입니다.", Toast.LENGTH_SHORT).show()
                 }
+            }.addOnFailureListener{
+                Toast.makeText(this,"서버에 연결할 수 없습니다.",Toast.LENGTH_SHORT).show()
             }
     }
 }

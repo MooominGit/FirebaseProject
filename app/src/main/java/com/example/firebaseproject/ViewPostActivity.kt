@@ -40,6 +40,7 @@ class ViewPostActivity : AppCompatActivity() {
             intent.putExtra("postUserId",postUserId)
             startActivity(intent)
         }
+
     }
 
     private fun getData(docId: String) {

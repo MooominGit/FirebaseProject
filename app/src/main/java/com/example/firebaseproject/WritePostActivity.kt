@@ -4,10 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.crashlytics.internal.model.CrashlyticsReport.Session.Event.Application.Execution.Thread.Frame
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -23,6 +25,10 @@ class WritePostActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_write_post)
+
+        findViewById<FrameLayout>(R.id.frameLayout2).setOnClickListener{
+            editContent.requestFocus()
+        }
 
         writeButton.setOnClickListener{
             addItem()
@@ -58,6 +64,7 @@ class WritePostActivity: AppCompatActivity() {
         )
         postRef.add(itemMap).addOnSuccessListener {
             startActivity(Intent(this,ViewPostListActivity::class.java))
+            finish()
         }
             .addOnFailureListener{
                 Toast.makeText(this,"글 등록에 실패했습니다.",Toast.LENGTH_SHORT).show()

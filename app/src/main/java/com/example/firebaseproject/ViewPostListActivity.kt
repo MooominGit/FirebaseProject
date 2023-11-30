@@ -7,6 +7,7 @@ import android.widget.CheckBox
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.ktx.firestore
@@ -21,7 +22,7 @@ class ViewPostListActivity: AppCompatActivity() {
     private val wrietPost by lazy { findViewById<Button>(R.id.writePost)}
     private val receivedMessage by lazy { findViewById<Button>(R.id.receivedMessage)}
     private val forSale by lazy {findViewById<CheckBox>(R.id.view_post_list_forSale)}
-
+    private val logout by lazy {findViewById<Button>(R.id.view_post_logout)}
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_post_list)
@@ -50,6 +51,12 @@ class ViewPostListActivity: AppCompatActivity() {
 
         receivedMessage.setOnClickListener{
             startActivity(Intent(this,ViewMessageListActivity::class.java))
+        }
+
+        logout.setOnClickListener{
+            Firebase.auth.signOut()
+            startActivity(Intent(this,MainActivity::class.java))
+            finish()
         }
     }
 

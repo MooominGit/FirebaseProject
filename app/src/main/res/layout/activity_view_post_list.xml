@@ -10,7 +10,9 @@
         android:id="@+id/PostRecycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
         android:layout_marginBottom="25dp"
         app:layout_constraintBottom_toTopOf="@+id/writePost"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,8 +57,20 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="50dp"
         android:checked="true"
-        android:text="필터 : 판매여부"
+        android:text="필터 : 판매여부 x도 표시"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/view_post_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@android:color/transparent"
+        android:text="로그아웃"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -38,19 +38,19 @@ class SignUpActivity : AppCompatActivity() {
     }
     private fun doSignUp(userEmail: String, password: String, name: String, birthdate: String){
         if (userEmail.isEmpty()) {
-            Snackbar.make(UserEmail, "유효하지 않은 이메일 형식입니다.", Snackbar.LENGTH_SHORT).show()
+            Toast.makeText(this, "유효하지 않은 이메일 형식입니다.", Toast.LENGTH_SHORT).show()
             return
         }
         else if (password.isEmpty() || password.length < 6) {
-            Snackbar.make(Password, "비밀번호는 6글자 이상이어야 합니다.", Snackbar.LENGTH_SHORT).show()
+            Toast.makeText(this, "비밀번호는 6글자 이상이어야 합니다.", Toast.LENGTH_SHORT).show()
             return
         }
         else if (name.isEmpty()) {
-            Snackbar.make(Name, "이름을 입력해주세요.", Snackbar.LENGTH_SHORT).show()
+            Toast.makeText(this, "이름을 입력해주세요.", Toast.LENGTH_SHORT).show()
             return
         }
-        else if (birthdate.isEmpty()) {
-            Snackbar.make(Birth, "유효하지 않은 생년월일입니다.", Snackbar.LENGTH_SHORT).show()
+        else if (birthdate.isEmpty() || birthdate.length < 8) {
+            Toast.makeText(this, "유효하지 않은 생년월일입니다.", Toast.LENGTH_SHORT).show()
             return
         }
         Firebase.auth.createUserWithEmailAndPassword(userEmail,password)

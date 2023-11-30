@@ -1,12 +1,15 @@
 package com.example.firebaseproject
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.QueryDocumentSnapshot
+import com.google.firebase.ktx.Firebase
 import java.text.DecimalFormat
 
 data class Item(val docId : String, val title: String, val price: Int, val forSale : Boolean, val id : String) {
@@ -43,6 +46,10 @@ class PostAdapter(private val context: Context, private var items: List<Item>)
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         val decimalFormat = DecimalFormat("#,###")
         val item = items[position]
+        if(item.id == Firebase.auth.currentUser?.uid)
+            holder.view.setBackgroundColor(Color.parseColor("#EEEEEE"));
+        else
+            holder.view.setBackgroundColor(Color.rgb(255,251,254))
         holder.view.findViewById<TextView>(R.id.post_list_title).text = item.title
         holder.view.findViewById<TextView>(R.id.post_list_price).text = decimalFormat.format(item.price).toString() + "원"
         if (item.forSale.toString() == "true")
